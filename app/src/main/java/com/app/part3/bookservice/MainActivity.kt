@@ -1,6 +1,7 @@
 package com.app.part3.bookservice
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,7 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         initHistoryRecyclerView()
 
-        adapter = BookAdapter()
+        adapter = BookAdapter(itemClickedListener = {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("bookModel",it)
+            startActivity(intent)
+        })
 
         db = Room.databaseBuilder(
             applicationContext,

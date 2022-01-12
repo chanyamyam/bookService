@@ -5,11 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.app.part3.bookservice.databinding.ItemBookBinding
 import com.app.part3.bookservice.databinding.ItemHistoryBinding
-import com.app.part3.bookservice.model.Book
 import com.app.part3.bookservice.model.History
-import com.bumptech.glide.Glide
 
 class HistoryAdapter(val historyDeleteClickedListener: (String) -> Unit): ListAdapter<History, HistoryAdapter.HistoryItemViewHolder>(diffUtil) {
 

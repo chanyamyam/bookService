@@ -9,14 +9,20 @@ import com.app.part3.bookservice.databinding.ItemBookBinding
 import com.app.part3.bookservice.model.Book
 import com.bumptech.glide.Glide
 
-class BookAdapter: ListAdapter<Book, BookAdapter.BookItemViewHolder>(diffUtil) {
+class BookAdapter(private val itemClickedListener: (Book) -> Unit) :
+    ListAdapter<Book, BookAdapter.BookItemViewHolder>(diffUtil) {
 
-    inner class BookItemViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BookItemViewHolder(private val binding: ItemBookBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(bookModel: Book) {
             binding.titleTextView.text = bookModel.title
             binding.descriptionTextView.text = bookModel.description
 
+
+            binding.root.setOnClickListener {
+                itemClickedListener(bookModel)
+            }
             Glide
                 .with(binding.coverImageView)
                 .load(bookModel.coverSmallUrl)
@@ -25,7 +31,13 @@ class BookAdapter: ListAdapter<Book, BookAdapter.BookItemViewHolder>(diffUtil) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookItemViewHolder {
-        return BookItemViewHolder(ItemBookBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return BookItemViewHolder(
+            ItemBookBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: BookItemViewHolder, position: Int) {
